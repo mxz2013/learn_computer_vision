@@ -35,8 +35,23 @@ def image_in_image(im1,im2, tp):
 
     return (1-alpha)*im2 + alpha*im1_t
 
+def alpha_for_triangle(points,m,n):
+    """Creats alpha map of size (m,n) for a triangle with corners
+    defined by poins (given in normalized homogeneous coordinates).
+    """
+    alpha = zeros((m,n))
+    for i in range(min(points[0]),max(points[0])):
+        for j in range(min(points[1]),max(points[1])):
+            x = linalg.solve(points,[i,j,1])
+            if min(x) > 0: # all coefficients positive
+                alpha[i,j] = 1
+    return alpha
+
+
+
 
 ## example of affine warp of im1 onto im2
+
 
 im1 = array(Image.open('../images/beatles.jpg').convert('L'))
 im2 = array(Image.open('../images/billboard_for_rent.jpg').convert('L'))
@@ -54,22 +69,18 @@ x2 = [40, 36, 605,605]
 # left-above, left-below, right-below, right-above
 
 # set to points
-#tp = array([[264,538,540,264],[40,36,605,605],[1,1,1,1,]])
-#tp = array([[264,538,540,264],[605, 605, 40,36],[1,1,1,1,]])
-#fp = array([[m, 0, 0, m], [0, 0, n, n], [1, 1, 1, 1]])
-#tp = array([[m2/2, 0, 0, m2/2], [0, 0, n2, n2], [1, 1, 1, 1]])
 tp = array([y2,x2, [1, 1, 1, 1]])
 
 
-im3 = image_in_image(im1,im2,tp)
-
-figure()
-gray()
-imshow(im3)
-plot(x2,y2, 'r*')
-axis('equal')
-axis('off')
-show()
-
+#im3 = image_in_image(im1,im2,tp)
+#
+#figure()
+#gray()
+#imshow(im3)
+#plot(x2,y2, 'r*')
+#axis('equal')
+#axis('off')
+#show()
+#
 
 

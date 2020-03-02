@@ -77,7 +77,9 @@ def H_from_points(fp,tp):
 
 def Haffine_from_points(fp,tp):
     """ Find H, affine transformation, such that tp is affine transform of
-    fp"""
+    fp. the fp is the coordinates of the poins in homogeneous representation, e.g., 
+     fp for 4 poins reads, fp = array([y, x, [1,1,1,1]]) where y=[y1, y2,y3,y4].
+    """
 
     if fp.shape != tp.shape:
         raise RuntimeError('number of points do not match')
@@ -86,6 +88,9 @@ def Haffine_from_points(fp,tp):
     # normalizing so that they have zero mean and unit standard deviation
     # --from points--
     m = mean(fp[:2], axis=1)
+    # m = [mean(y), mean(x)]
+    print'the fp[:2] and m ', fp[:2], m
+
     maxstd = max(std(fp[:2], axis=1)) + 1e-9
     C1 =  diag([1/maxstd, 1/maxstd, 1])
     C1[0][2] = -m[0]/maxstd
