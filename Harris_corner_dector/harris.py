@@ -194,6 +194,7 @@ def plot_harris_points(image,filtered_coords):
     figure()
     gray()
     imshow(image)
+    ### why p[1] corresponds to x and p[0] corresponds to y???
     plot([p[1] for p in filtered_coords], [p[0] for p in filtered_coords], '*')
     plot([p[0] for p in filtered_coords], [p[1] for p in filtered_coords], 'rD')
     axis('off')
