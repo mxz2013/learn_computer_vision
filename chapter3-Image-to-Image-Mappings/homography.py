@@ -89,7 +89,7 @@ def Haffine_from_points(fp,tp):
     # --from points--
     m = mean(fp[:2], axis=1)
     # m = [mean(y), mean(x)]
-    print'the fp[:2] and m ', fp[:2], m
+    #print'the fp[:2] and m ', fp[:2], m
 
     maxstd = max(std(fp[:2], axis=1)) + 1e-9
     C1 =  diag([1/maxstd, 1/maxstd, 1])
